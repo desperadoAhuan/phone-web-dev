@@ -1,8 +1,10 @@
 <template>
-    <input type="text">
-    <input type="text">
-    <input type="text">
-    <div class="button" v-on:click="addInfo">提交</div>
+    <div>
+        <input type="text" v-model="id">
+        <input type="text" v-model="name">
+        <input type="text" v-model="phoneNumber">
+        <div class="button" v-on:click="addInfo">提交</div>
+    </div>
 </template>
 
 <script>
@@ -10,13 +12,31 @@ export default {
     name: "AddInfo",
     data() {
         return {
-
+            name: "",
+            phoneNumber: "",
+            id: ""
         };
     },
     methods: {
-        addInfo: function() {}
+        addInfo: function() {
+            check(this.name);
+            check(this.phoneNumber);
+            check(this.id);
+
+            this.$emit("addInfo", {
+                name: this.name,
+                phoneNumber: this.phoneNumber,
+                id: this.id
+            });
+        }
     }
 };
+function check(value) {
+    if (!value) {
+        alert("check input!");
+    }
+    return value;
+}
 </script>
 
 <style>
